@@ -37,18 +37,34 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
+    const aa = inventors.filter(el => (el.year >= 1500 && el.year < 1600));
+    // 화살표 함수와 그냥 함수 차이??
+    // 중가로가 들어가면 return을 사용해야함.
+    // 하지만 화살표 함수는 자체 콜백 함수이기 때문에 return이 필요없음.
+    // const aa = inventors.filter(function(el){
+    // return el.year >= 1500 && el.year < 1600;
+    // });
+    console.log(aa);
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-
+    const bb = inventors.map(el => (`${el.first} ${el.last}`));
+    console.log(bb);
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-
+    const cc = inventors.sort((a,b) => {
+    return a.year -b.year
+    });
+    console.log(cc);
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-
+    const dd = inventors.reduce((age, el) => {
+     return age + (el.passed - el.year);
+    }, 0);
+    console.log(dd);
     // 5. Sort the inventors by years lived
-
+    const ee = inventors.sort((a,b) => {
+      
+    });
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 

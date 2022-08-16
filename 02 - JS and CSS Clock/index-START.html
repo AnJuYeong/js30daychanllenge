@@ -62,19 +62,44 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: right;
+      transform: rotateZ(45deg);
     }
 
   </style>
 
   <script>
-    const clock = 6;
+    const hourHand = document.querySelector(".hour-hand");
+    const minHand = document.querySelector(".min-hand");
+    const secondHand = document.querySelector(".second-hand");
+    
+    
+    setInterval(() => {  
+      
+      const day = new Date();
+      
+      const secD = day.getSeconds() * 6;
+      // secD를 선언한 이유는 예를 들면 초침이 30초 되었을 때 분침이 3도 움직여야하는데 처음 시작할 때 90도를 더해줘야하는 변수가 있어 따로 선언해줌.
+      const secDeg = (day.getSeconds() * 6) + 90;
+      // 이건 초침 움직이는 용도
+      const minD = day.getMinutes() * 6;
+      // miD를 선언한 이유는 예를 들면 분침이 30분 되었을 때 시침이 15도 움직여야하는데 처음 시작할 때 90도를 더해줘야하는 변수가 있어 따로 선언해줌.
+      const minDeg = ((day.getMinutes() * 6) + (secD/60) + 90) ;
+      // 이건 분침 움직이는 용도
+      // 1분당 6도가 돌아야 하는 상황이고 추가적으로 초침이 30초면 분침은 3도 돌아가야 한다. 그래서 secDeg/60을 해준다.
+      // (secDeg/60) : 초침 각도에서 총 60분이니깐 60 나눠주기
+      const hourDeg = ((day.getHours()* 30) + (minD/12) + 90) ;
+      // 이건 시침 움직이는 용도
+      // 1시간당 30도가 돌고 30분이면 15도가 돌아야한다. 그래서 30분이 되었을 때 (minDeg가 180도일때 총 12시간이여서 12로 나눠주면 15도가 돌아간 경우가 나온다.)의 경우를 더해준다.
+      // 근데 minDeg에서 처음 시작할 때 90도를 돌리기 위해서 +90 해준걸 빼고 더해줘야 한다.
+      // (minDeg/12) : 분침 각도에서 총 12시간이니깐 12 나눠주기
+      
+      secondHand.style.transform = `rotateZ(${secDeg}deg)`;
+      minHand.style.transform = `rotateZ(${minDeg}deg)`;
+      hourHand.style.transform = `rotateZ(${hourDeg}deg)`;
 
-    const hour = document.querySelector(".hour-hand");
-    const min = document.querySelector(".min-hand");
-    const second = document.querySelector(".second-hand");
-
-    // se
-
+    }, 1000 );
+    
   </script>
 </body>
 </html>
